@@ -13,6 +13,8 @@
 class chocolatey_misc {
   
   windowsfeature { "WebAdministration":
+    ensure => present,
+    installmanagementtools => true
   }
 
 }
