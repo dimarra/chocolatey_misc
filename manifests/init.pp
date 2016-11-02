@@ -17,10 +17,14 @@ class chocolatey_misc {
     default => false
   }
 
-  $iis_features = $_is_windows_2008 ? {
-    true    => ['Web-Server','Web-ISAPI-Ext','Web-ISAPI-Filter','WAS-NET-Environment','Web-Http-Redirect','Web-Filtering','Web-Mgmt-Console','Web-Mgmt-Tools'],
-    default => ['Web-Server','Web-ISAPI-Ext','Web-ISAPI-Filter','NET-Framework-45-ASPNET','WAS-NET-Environment','Web-Http-Redirect','Web-Filtering','Web-Mgmt-Console','Web-Mgmt-Tools']
+#  $iis_features = $_is_windows_2008 ? {
+#    true    => ['Web-Server','Web-ISAPI-Ext','Web-ISAPI-Filter','WAS-NET-Environment','Web-Http-Redirect','Web-Filtering','Web-Mgmt-Console','Web-Mgmt-Tools'],
+#    default => ['Web-Server','Web-ISAPI-Ext','Web-ISAPI-Filter','NET-Framework-45-ASPNET','WAS-NET-Environment','Web-Http-Redirect','Web-Filtering','Web-Mgmt-Console','Web-Mgmt-Tools']
+#  }
 
+  $iis_features = $_is_windows_2008 ? {
+     true    => ['Web-Server','Web-WebServer','Web-ISAPI-Ext','Web-ISAPI-Filter','WAS-NET-Environment','Web-Http-Redirect','Web-Filtering','Web-Mgmt-Console','Web-Mgmt-Tools'],
+     default => ['Web-Server','Web-WebServer','Web-Asp-Net45','Web-ISAPI-Ext','Web-ISAPI-Filter','NET-Framework-45-ASPNET','WAS-NET-Environment','Web-Http-Redirect','Web-Filtering','Web-Mgmt-Console','Web-Mgmt-Tools']
   }
   
   windowsfeature { $iis_features:
