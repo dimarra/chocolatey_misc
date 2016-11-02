@@ -12,14 +12,19 @@
 #
 class chocolatey_misc {
   
-  $iis_features = ['Web-Server','Web-WebServer','Web-Asp-Net45','Web-ISAPI-Ext','Web-ISAPI-Filter','NET-Framework-45-ASPNET','WAS-NET-Environment','Web-Http-Redirect','Web-Filtering','Web-Mgmt-Console','Web-Mgmt-Tools']
+  $_is_windows_2008 = $::kernelmajversion ? {
+    '6.1'   => true,
+    default => false
+  }
 
+  $iis_features = $_is_windows_2008 ? {
+    true    => ['Web-Server','Web-WebServer','Web-ISAPI-Ext','Web-ISAPI-Filter','WAS-NET-Environment','Web-Http-Redirect','Web-Filtering','Web-Mgmt-Console','Web-Mgmt-Tools'],
+    default => ['Web-Server','Web-WebServer','Web-Asp-Net45','Web-ISAPI-Ext','Web-ISAPI-Filter','NET-Framework-45-ASPNET','WAS-NET-Environment','Web-Http-Redirect','Web-Filtering','Web-Mgmt-Console','Web-Mgmt-Tools']
+
+  }
+  
   windowsfeature { $iis_features:
     ensure => present,
   }
-
-#  windowsfeature { "WebAdministration":
-#    ensure => present,
-#  }
 
 }
